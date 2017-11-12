@@ -1,12 +1,6 @@
 var lifegame = function(puts){
 
-  var cell = [];
-  for (var i = 0; i < 5; i++) {
-    cell[i] = [];
-    for (var j = 0; j < 5; j++) {
-      cell[i][j] = "□";
-    }
-  }
+  var cell = initCanvas();
 
   cell[2][1] = "■";
   cell[2][2] = "■";
