@@ -1,2 +1,6 @@
 var lifegame = require('./lifegame.js');
-lifegame();
+lifegame(
+  function (line) {
+    console.log(line);
+  }
+);
