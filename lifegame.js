@@ -1,74 +1,74 @@
 var lifegame = function(puts){
 
-var b = [];
+var cell = [];
 for (var i = 0; i < 5; i++) {
-  b[i] = [];
+  cell[i] = [];
   for (var j = 0; j < 5; j++) {
-    b[i][j] = "□";
+    cell[i][j] = "□";
   }
 }
 
-b[2][1] = "■";
-b[2][2] = "■";
-b[2][3] = "■";
+cell[2][1] = "■";
+cell[2][2] = "■";
+cell[2][3] = "■";
 
 for (var i = 0; i < 5; i++) {
   var line = "";
   for (var j = 0; j < 5; j++) {
-    line += b[i][j];
+    line += cell[i][j];
   }
   puts(line);
 }
 
 for (var times = 0; times < 3; times++) {
-  var bb = [[],[],[],[],[]];
+  var next_cell = [[],[],[],[],[]];
   for (var i = 0; i < 5; i++) {
     for (var j = 0; j < 5; j++) {
       // 誕生
-      if (b[i][j] == "□") {
+      if (cell[i][j] == "□") {
         var count = 0;
-        if (b[i-1] && b[i-1][j-1] == "■") count = count+1;
-        if (b[i-1] && b[i-1][j] == "■") count = count+1;
-        if (b[i-1] && b[i-1][j+1] == "■") count = count+1;
-        if (b[i] && b[i][j-1] == "■") count = count+1;
-        if (b[i] && b[i][j+1] == "■") count = count+1;
-        if (b[i+1] && b[i+1][j-1] == "■") count = count+1;
-        if (b[i+1] && b[i+1][j] == "■") count = count+1;
-        if (b[i+1] && b[i+1][j+1] == "■") count = count+1;
+        if (cell[i-1] && cell[i-1][j-1] == "■") count = count+1;
+        if (cell[i-1] && cell[i-1][j] == "■") count = count+1;
+        if (cell[i-1] && cell[i-1][j+1] == "■") count = count+1;
+        if (cell[i] && cell[i][j-1] == "■") count = count+1;
+        if (cell[i] && cell[i][j+1] == "■") count = count+1;
+        if (cell[i+1] && cell[i+1][j-1] == "■") count = count+1;
+        if (cell[i+1] && cell[i+1][j] == "■") count = count+1;
+        if (cell[i+1] && cell[i+1][j+1] == "■") count = count+1;
         if (count >= 3) {
-          bb[i][j] = "■";
+          next_cell[i][j] = "■";
         } else {
-          bb[i][j] = "□";
+          next_cell[i][j] = "□";
         }
       } else {
-        bb[i][j] = "□"
+        next_cell[i][j] = "□"
       }
 
       // 生存、過疎、過密を判定
-      if (b[i][j] == "■") {
+      if (cell[i][j] == "■") {
         var count = 0;
-        if (b[i-1] && b[i-1][j] == "■") count = count+1;
-        if (b[i] && b[i][j-1] == "■") count = count+1;
-        if (b[i] && b[i][j+1] == "■") count = count+1;
-        if (b[i+1] && b[i+1][j] == "■") count = count+1;
+        if (cell[i-1] && cell[i-1][j] == "■") count = count+1;
+        if (cell[i] && cell[i][j-1] == "■") count = count+1;
+        if (cell[i] && cell[i][j+1] == "■") count = count+1;
+        if (cell[i+1] && cell[i+1][j] == "■") count = count+1;
 
         if (count == 2) {
-          bb[i][j] = "■";
+          next_cell[i][j] = "■";
         }　else {
-          bb[i][j] = "□";
+          next_cell[i][j] = "□";
         }
       }
     }
   }
 
-  b = bb;
+  cell = next_cell;
 
   puts(times + "==========");
 
   for (var i = 0; i < 5; i++) {
     var line = "";
     for (var j = 0; j < 5; j++) {
-      line += b[i][j];
+      line += cell[i][j];
     }
     puts(line);
   }
