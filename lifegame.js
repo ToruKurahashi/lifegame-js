@@ -1,68 +1,66 @@
 var lifegame = function(puts){
 
-  var cell = initCanvas();
+  var cells = initCanvas();
 
-  cell[2][1] = "■";
-  cell[2][2] = "■";
-  cell[2][3] = "■";
+  cells = setBlinker(cells);
 
   for (var i = 0; i < 5; i++) {
     var line = "";
     for (var j = 0; j < 5; j++) {
-      line += cell[i][j];
+      line += cells[i][j];
     }
     puts(line);
   }
 
   for (var times = 0; times < 3; times++) {
-    var next_cell = [[],[],[],[],[]];
+    var next_cells = [[],[],[],[],[]];
     for (var i = 0; i < 5; i++) {
       for (var j = 0; j < 5; j++) {
         // 誕生
-        if (cell[i][j] == "□") {
+        if (cells[i][j] == "□") {
           var count = 0;
-          if (cell[i-1] && cell[i-1][j-1] == "■") count = count+1;
-          if (cell[i-1] && cell[i-1][j] == "■") count = count+1;
-          if (cell[i-1] && cell[i-1][j+1] == "■") count = count+1;
-          if (cell[i] && cell[i][j-1] == "■") count = count+1;
-          if (cell[i] && cell[i][j+1] == "■") count = count+1;
-          if (cell[i+1] && cell[i+1][j-1] == "■") count = count+1;
-          if (cell[i+1] && cell[i+1][j] == "■") count = count+1;
-          if (cell[i+1] && cell[i+1][j+1] == "■") count = count+1;
+          if (cells[i-1] && cells[i-1][j-1] == "■") count = count+1;
+          if (cells[i-1] && cells[i-1][j] == "■") count = count+1;
+          if (cells[i-1] && cells[i-1][j+1] == "■") count = count+1;
+          if (cells[i] && cells[i][j-1] == "■") count = count+1;
+          if (cells[i] && cells[i][j+1] == "■") count = count+1;
+          if (cells[i+1] && cells[i+1][j-1] == "■") count = count+1;
+          if (cells[i+1] && cells[i+1][j] == "■") count = count+1;
+          if (cells[i+1] && cells[i+1][j+1] == "■") count = count+1;
           if (count >= 3) {
-            next_cell[i][j] = "■";
+            next_cells[i][j] = "■";
           } else {
-            next_cell[i][j] = "□";
+            next_cells[i][j] = "□";
           }
         } else {
-          next_cell[i][j] = "□"
+          next_cells[i][j] = "□"
         }
 
         // 生存、過疎、過密を判定
-        if (cell[i][j] == "■") {
+        if (cells[i][j] == "■") {
           var count = 0;
-          if (cell[i-1] && cell[i-1][j] == "■") count = count+1;
-          if (cell[i] && cell[i][j-1] == "■") count = count+1;
-          if (cell[i] && cell[i][j+1] == "■") count = count+1;
-          if (cell[i+1] && cell[i+1][j] == "■") count = count+1;
+          if (cells[i-1] && cells[i-1][j] == "■") count = count+1;
+          if (cells[i] && cells[i][j-1] == "■") count = count+1;
+          if (cells[i] && cells[i][j+1] == "■") count = count+1;
+          if (cells[i+1] && cells[i+1][j] == "■") count = count+1;
 
           if (count == 2) {
-            next_cell[i][j] = "■";
+            next_cells[i][j] = "■";
           }　else {
-            next_cell[i][j] = "□";
+            next_cells[i][j] = "□";
           }
         }
       }
     }
 
-    cell = next_cell;
+    cells = next_cells;
 
     puts(times + "==========");
 
     for (var i = 0; i < 5; i++) {
       var line = "";
       for (var j = 0; j < 5; j++) {
-        line += cell[i][j];
+        line += cells[i][j];
       }
       puts(line);
     }
@@ -71,17 +69,25 @@ var lifegame = function(puts){
 }
 
 var initCanvas = function() {
-  var cell = [];
+  var cells = [];
   for (var i = 0; i < 5; i++) {
-    cell[i] = [];
+    cells[i] = [];
     for (var j = 0; j < 5; j++) {
-      cell[i][j] = "□";
+      cells[i][j] = "□";
     }
   }
-  return cell;
+  return cells;
+};
+
+var setBlinker = function(cells) {
+  cells[2][1] = "■";
+  cells[2][2] = "■";
+  cells[2][3] = "■";
+  return cells;
 };
 
 module.exports = {
   lifegame: lifegame,
-  initCanvas: initCanvas
+  initCanvas: initCanvas,
+  setBlinker: setBlinker
 };
