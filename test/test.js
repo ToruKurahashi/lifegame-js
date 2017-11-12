@@ -25,4 +25,15 @@ describe('ライフゲーム',() => {
     assert.deepEqual(lifegame.initCanvas(), data);
   });
 
+  test('ブリンカーの初期値が設定されているかどうか', () => {
+    const data = [
+      ['□','□','□','□','□'],
+      ['□','□','□','□','□'],
+      ['□','■','■','■','□'],
+      ['□','□','□','□','□'],
+      ['□','□','□','□','□']
+    ];
+    assert.deepEqual(lifegame.setBlinker(lifegame.initCanvas()), data);
+  });
+
 });

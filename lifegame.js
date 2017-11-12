@@ -2,9 +2,7 @@ var lifegame = function(puts){
 
   var cell = initCanvas();
 
-  cell[2][1] = "■";
-  cell[2][2] = "■";
-  cell[2][3] = "■";
+  cell = setBlinker(cell);
 
   for (var i = 0; i < 5; i++) {
     var line = "";
@@ -81,7 +79,15 @@ var initCanvas = function() {
   return cell;
 };
 
+var setBlinker = function(cells) {
+  cells[2][1] = "■";
+  cells[2][2] = "■";
+  cells[2][3] = "■";
+  return cells;
+};
+
 module.exports = {
   lifegame: lifegame,
-  initCanvas: initCanvas
+  initCanvas: initCanvas,
+  setBlinker: setBlinker
 };
